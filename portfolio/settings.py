@@ -58,6 +58,7 @@ CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',  # for localhost (REACT Default)
+    'http://195.35.42.23/'
 )
 
 ROOT_URLCONF = 'portfolio.urls'
