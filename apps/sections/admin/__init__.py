@@ -9,3 +9,4 @@ from .language_admin import *
 from .language_status_admin import *
 from .skill_admin import *
 from .project_admin import *
+from .message_admin import *

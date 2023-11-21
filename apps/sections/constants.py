@@ -23,6 +23,11 @@ class InteractFieldsChoices(models.TextChoices):
     VIEW = "3", "VIEW"
 
 
+class ContactTypeChoices(models.IntegerChoices):
+    MOBILE = 0, _('Mobile')
+    EMAIL = 1, _('Email')
+
+
 class CategorySkillChoices(models.IntegerChoices):
     PROGRAMING_LANG = 0, _('Programing Languages')
     WEB_DEVELOPMENT = 1, _('Web Development')

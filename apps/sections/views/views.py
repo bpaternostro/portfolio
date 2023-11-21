@@ -4,10 +4,19 @@ from rest_framework.response import Response
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 
-from ..models.resume import Person, Post
-from ..serializers import PersonSerializer, PostSerializer, PostInteractSerializer
+from ..models.resume import Person, Post, Message
+from ..serializers import PersonSerializer, PostSerializer, PostInteractSerializer, MessageSerializer
+
 
 # Create your views here.
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    permission_classes = [
+        permissions.AllowAny,
+    ]
+    serializer_class = MessageSerializer
+    
+
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     permission_classes = [

@@ -1,7 +1,7 @@
 from itertools import groupby
 from django.db.models import Q
 from rest_framework import serializers
-from .models.resume import Person, Experience, Education, Skill, Project, Contact, Task, Post
+from .models.resume import Person, Experience, Education, Skill, Project, Contact, Task, Post, Message
 from .constants import SkillChoices, InteractFieldsChoices
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -42,6 +42,12 @@ class ExperienceSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
+        fields = "__all__"
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
         fields = "__all__"
 
 

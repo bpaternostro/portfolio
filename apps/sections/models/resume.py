@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 
-from ..constants import SkillChoices, LevelChoices, EducationChoices, EducationStatusChoices, CategorySkillChoices
+from ..constants import SkillChoices, LevelChoices, EducationChoices, EducationStatusChoices, CategorySkillChoices, ContactTypeChoices
 
 class BaseModel(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
@@ -85,6 +85,7 @@ class Post(ResumeBaseModel):
     like = models.IntegerField(default=0)
     share = models.IntegerField(default=0)
     view = models.IntegerField(default=0)
+    hashtags = models.TextField(blank=True)
 
 
 class Person(BaseModel):
@@ -102,6 +103,14 @@ class Person(BaseModel):
     skill = models.ManyToManyField(Skill, blank=True)
     project = models.ManyToManyField(Project, blank=True)
     post = models.ManyToManyField(Post, blank=True)
+
+
+class Message(BaseModel):
+    full_name = models.CharField(max_length=200)
+    contact_type = models.IntegerField(choices = ContactTypeChoices.choices, default=ContactTypeChoices.EMAIL)
+    contact = models.CharField(max_length=200, blank=True)
+    subject = models.TextField(blank=True)
+    message = models.TextField(blank=True)
 
 
 class Resume(BaseModel):
