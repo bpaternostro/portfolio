@@ -1,27 +1,9 @@
 #!/bin/bash
 
-echo "Flush the manage.py command it any"
-
-while ! python manage.py flush --no-input 2>&1; do
-  echo "Flusing django manage command"
-  sleep 3
-done
-
-echo "Make migration of the Database"
-
-# Wait for few minute and run db migraiton
-while ! python manage.py makemigrations sections 2>&1; do
-   echo "Doing migrations is in progress status"
-   sleep 3
-done
-
-echo "Migrate the Database at startup of project"
-
-# Wait for few minute and run db migraiton
-while ! python manage.py migrate 2>&1; do
-   echo "Migration is in progress status"
-   sleep 3
-done
+python manage.py makemigrations
+python manage.py migrate --no-input
+python manage.py collectstatic --no-input
+gunicorn portfolio.wsgi:application --bind 0.0.0.0:8000
 
 echo "Django docker is fully configured successfully."
 

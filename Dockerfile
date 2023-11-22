@@ -1,16 +1,15 @@
 FROM python:3.10
-RUN mkdir -p /portfolio
-WORKDIR /portfolio
 
-COPY . .
+RUN pip install --upgrade pip
 
-ENV PIPENV_VENV_IN_PROJECT=1
+# copy project
+COPY . /app
+WORKDIR /app
 
+RUN pip install gunicorn
 RUN pip install pipenv
 RUN pipenv sync --system           
 
-# copy project
-COPY . /opt/app/
-RUN chmod +x /opt/app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
 
-ENTRYPOINT [ "/opt/app/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
