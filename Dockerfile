@@ -1,15 +1,22 @@
+# pull official base image
 FROM python:3.10
+ENV PYTHONUNBUFFERED=1
 
 RUN pip install --upgrade pip
 
-# copy project
-COPY . /app
-WORKDIR /app
+WORKDIR /backend
+COPY Pipfile* /backend/
 
 RUN pip install gunicorn
 RUN pip install pipenv
 RUN pipenv sync --system           
 
-RUN chmod +x /app/docker-entrypoint.sh
+# Set environment variables
+ENV DJANGO_SETTINGS_MODULE=portfolio.settings
 
-ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
+# copy project
+COPY . /backend/
+
+RUN chmod +x /backend/docker-entrypoint.sh
+
+ENTRYPOINT [ "/backend/docker-entrypoint.sh" ]
