@@ -1,5 +1,5 @@
 from itertools import groupby
-from django.db.models import Q
+from django.conf import settings
 from rest_framework import serializers
 from .models.resume import Person, Experience, Education, Skill, Project, Contact, Task, Post, Message
 from .constants import SkillChoices, InteractFieldsChoices
@@ -38,6 +38,11 @@ class ExperienceSerializer(serializers.ModelSerializer):
     def get_task(self, obj):
         return [t.description for t in obj.task.all()]
 
+    def to_representation(self, instance):
+        response = super(ExperienceSerializer, self).to_representation(instance)
+        if instance.logo:
+            response['logo'] = settings.MEDIA_ROOT + instance.logo.name
+        return response
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,6 +65,12 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_skill(self, obj):
         return [s.name for s in obj.skill.all()]
+    
+    def to_representation(self, instance):
+        response = super(PostSerializer, self).to_representation(instance)
+        if instance.image:
+            response['image'] = settings.MEDIA_ROOT + instance.image.name
+        return response
 
 
 class PostInteractSerializer(serializers.ModelSerializer):
@@ -110,3 +121,9 @@ class PersonSerializer(serializers.ModelSerializer):
     def get_post(self, obj):
         posts = obj.post.all().order_by('-created_on')
         return PostSerializer(posts, many=True).data
+    
+    def to_representation(self, instance):
+        response = super(PersonSerializer, self).to_representation(instance)
+        if instance.picture:
+            response['picture'] = settings.MEDIA_ROOT + instance.picture.name
+        return response
