@@ -28,7 +28,8 @@ class Task(BaseModel):
         return self.description  # What you want to show
 
 
-class Skill(ResumeBaseModel):
+class Skill(BaseModel):
+    name = models.CharField(max_length=200, unique=True)
     type = models.IntegerField(choices = SkillChoices.choices, default=SkillChoices.APTITUDES)
     category = models.IntegerField(choices = CategorySkillChoices.choices, default=CategorySkillChoices.PROGRAMING_LANG)
     institute = models.CharField(max_length=200, blank=True)
