@@ -35,6 +35,9 @@ class Skill(BaseModel):
     institute = models.CharField(max_length=200, blank=True)
     level = models.IntegerField(choices = LevelChoices.choices, default=LevelChoices.MEDIUM)
 
+    def __str__(self):
+        return self.name  # What you want to show
+
 
 class Experience(BaseModel):
     title = models.CharField(max_length=200) 
@@ -48,6 +51,9 @@ class Experience(BaseModel):
     skill = models.ManyToManyField(Skill, blank=True)
     lang = models.ManyToManyField("Language", through="ExperienceLang", blank=True)
 
+    def __str__(self):
+        return self.title  # What you want to show
+    
 
 class Education(BaseModel):
     title = models.CharField(max_length=200)
@@ -60,6 +66,9 @@ class Education(BaseModel):
     is_certification = models.BooleanField(default=False)
     lang = models.ManyToManyField("Language", through="EducationLang", blank=True)
 
+    def __str__(self):
+        return self.title  # What you want to show
+    
 
 class Project(ResumeBaseModel):
     summary = models.TextField(blank=True)
@@ -76,6 +85,9 @@ class Contact(ResumeBaseModel):
     contact = models.CharField(max_length=200, blank=True)
     icon = models.CharField(max_length=200, blank=True)
 
+    def __str__(self):
+        return self.name  # What you want to show
+
 
 class Post(ResumeBaseModel):
     summary = models.TextField()
@@ -88,6 +100,9 @@ class Post(ResumeBaseModel):
     view = models.IntegerField(default=0)
     hashtags = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Person(BaseModel):
     first_name = models.CharField(max_length=200) 
@@ -95,8 +110,8 @@ class Person(BaseModel):
     summary = models.TextField()
     email = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=200, blank=True)
-    nacionality = models.CharField(max_length=200)
-    address = models.CharField(max_length=200)
+    nacionality = models.CharField(max_length=200, blank=True)
+    address = models.CharField(max_length=200, blank=True)
     picture = models.ImageField(upload_to='images/', blank=True)
     social_contact = models.ManyToManyField(Contact, blank=True)
     experience = models.ManyToManyField(Experience, blank=True)

@@ -17,9 +17,6 @@ class TaskAdmin(admin.ModelAdmin):
 class ExperienceAdmin(admin.ModelAdmin):
     list_display = ["company", "title"]
 
-    def get_task_description():
-        return [(task, task.description()) for task in Task.objects.all()]
-
 
 admin.site.register(Experience, ExperienceAdmin)
 admin.site.register(Task, TaskAdmin)
