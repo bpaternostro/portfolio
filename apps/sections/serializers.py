@@ -87,7 +87,7 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class PersonSerializer(serializers.ModelSerializer):
-    experience = ExperienceSerializer(many=True)
+    experience = serializers.SerializerMethodField()
     education = EducationSerializer(many=True)
     aptitude = serializers.SerializerMethodField()
     certification = serializers.SerializerMethodField()
@@ -122,6 +122,10 @@ class PersonSerializer(serializers.ModelSerializer):
         posts = obj.post.all().order_by('-created_on')
         return PostSerializer(posts, many=True).data
     
+    def get_experience(self, obj):
+        experiences = obj.experience.all().order_by('-end_date')
+        return ExperienceSerializer(experiences, many=True).data
+
     def to_representation(self, instance):
         response = super(PersonSerializer, self).to_representation(instance)
         if instance.picture:
