@@ -104,19 +104,23 @@ class PersonSerializer(serializers.ModelSerializer):
 
     def get_certification(self, obj):
         skills = SkillSerializer(obj.skill.exclude(institute="").exclude(type=SkillChoices.LANGUAGE).exclude(type=SkillChoices.SOFT_SKILLS), many=True).data
-        return {key: list(group) for key, group in groupby(skills, key=lambda x: x["category_name"])} 
+        sorted_list = sorted(skills, key=lambda x: x["category_name"])
+        return {key: list(group) for key, group in groupby(sorted_list, key=lambda x: x["category_name"])} 
 
     def get_aptitude(self, obj):
-        skills = SkillSerializer(obj.skill.filter(institute=""), many=True).data
-        return {key: list(group) for key, group in groupby(skills, key=lambda x: x["category_name"])} 
+        skills = SkillSerializer(obj.skill.filter(type=SkillChoices.APTITUDES, institute=""), many=True).data
+        sorted_list = sorted(skills, key=lambda x: x["category_name"])
+        return {key: list(group) for key, group in groupby(sorted_list, key=lambda x: x["category_name"])} 
     
     def get_language(self, obj):
         skills = SkillSerializer(obj.skill.filter(type=SkillChoices.LANGUAGE), many=True).data
-        return {key: list(group) for key, group in groupby(skills, key=lambda x: x["category_name"])} 
+        sorted_list = sorted(skills, key=lambda x: x["category_name"])
+        return {key: list(group) for key, group in groupby(sorted_list, key=lambda x: x["category_name"])} 
     
     def get_soft_skill(self, obj):
         skills = SkillSerializer(obj.skill.filter(type=SkillChoices.SOFT_SKILLS), many=True).data
-        return {key: list(group) for key, group in groupby(skills, key=lambda x: x["category_name"])} 
+        sorted_list = sorted(skills, key=lambda x: x["category_name"])
+        return {key: list(group) for key, group in groupby(sorted_list, key=lambda x: x["category_name"])} 
     
     def get_post(self, obj):
         posts = obj.post.all().order_by('-created_on')

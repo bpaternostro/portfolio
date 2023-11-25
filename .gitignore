@@ -53,3 +53,5 @@ db.sqlite3
 portfolio/settings-local.py
 
 media/
+
+.vscode
