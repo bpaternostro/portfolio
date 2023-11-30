@@ -31,7 +31,9 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost',
     'http://127.0.0.1',
     'http://0.0.0.0',
-    'http://195.35.42.23'
+    'http://195.35.42.23',
+    'http://bpaternostro.site',
+    'https://bpaternostro.site'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
