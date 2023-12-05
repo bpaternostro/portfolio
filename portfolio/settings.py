@@ -39,15 +39,13 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    #'http://localhost',
-    #'http://127.0.0.1',
-    #'http://0.0.0.0',
-    #'http://195.35.42.23',
-    'http://bpaternostro.site',
     'https://bpaternostro.site',
 ]
 
 # settings.py
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
